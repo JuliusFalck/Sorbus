@@ -1,0 +1,37 @@
+[gd_scene load_steps=5 format=2]
+
+[sub_resource type="Shader" id=1]
+code = "shader_type canvas_item;
+
+uniform vec4 color = vec4(1.0, 1.0, 1.0, 1.0);
+uniform float speed = 0.15;
+uniform float width = 3.0;
+
+void fragment(){
+	float x = (UV.x -.5)*2.0;
+	float y = (UV.y -.5)*2.0;
+	float u = cos(TIME*speed);
+	float a = clamp(1.0 - 12.0/width*abs(pow(x,2.0) + pow(y,2)-.75),0.0, 1.0);
+	float t = atan(x, y)/6.28318530717958647692 + mod(TIME*speed, 1.0);
+	vec4 tex = color * texture(TEXTURE, vec2(t,a+u)).r;
+	COLOR = tex * a * 1.5;
+}"
+
+[sub_resource type="ShaderMaterial" id=2]
+shader = SubResource( 1 )
+shader_param/color = Plane( 1, 1, 1, 1 )
+shader_param/speed = 0.15
+shader_param/width = 3.0
+
+[sub_resource type="OpenSimplexNoise" id=3]
+
+[sub_resource type="NoiseTexture" id=4]
+seamless = true
+noise = SubResource( 3 )
+
+[node name="SelectRing" type="TextureRect"]
+modulate = Color( 0, 1, 0, 1 )
+material = SubResource( 2 )
+margin_right = 40.0
+margin_bottom = 40.0
+texture = SubResource( 4 )

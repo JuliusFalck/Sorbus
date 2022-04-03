@@ -1,0 +1,23 @@
+[gd_scene format=2]
+
+[node name="RichTextLabel" type="RichTextLabel"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -20.0
+margin_top = -20.0
+margin_right = 580.0
+margin_bottom = 580.0
+focus_mode = 2
+text = "afgjlkdfhghdfghodfhfkg 
+äfg
+df
+gäf
+däg
+dfä
+hf
+hjhhhhhhhhhhhhhhhh"
+scroll_following = true
+selection_enabled = true
+override_selected_font_color = true

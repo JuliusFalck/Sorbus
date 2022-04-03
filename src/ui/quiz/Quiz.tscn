@@ -1,0 +1,85 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://res/fonts/LargFont.tres" type="DynamicFont" id=1]
+[ext_resource path="res://src/ui/quiz/Quiz.gd" type="Script" id=3]
+
+[sub_resource type="StyleBoxFlat" id=2]
+bg_color = Color( 0.6, 0.6, 0.6, 0 )
+
+[sub_resource type="StyleBoxFlat" id=1]
+bg_color = Color( 0.6, 0.6, 0.6, 0 )
+
+[node name="Quiz" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+rect_min_size = Vector2( 600, 1200 )
+script = ExtResource( 3 )
+
+[node name="QuizVBox" type="VBoxContainer" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -300.0
+margin_top = -430.0
+margin_right = 300.0
+margin_bottom = 578.0
+rect_min_size = Vector2( 600, 0 )
+size_flags_vertical = 0
+
+[node name="Questions" type="CenterContainer" parent="QuizVBox"]
+margin_right = 600.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="QuizVBox"]
+margin_top = 8.0
+margin_right = 600.0
+margin_bottom = 93.0
+custom_constants/separation = 60
+alignment = 1
+
+[node name="PreviousButton" type="Button" parent="QuizVBox/HBoxContainer"]
+margin_left = 227.0
+margin_right = 270.0
+margin_bottom = 85.0
+custom_fonts/font = ExtResource( 1 )
+custom_styles/hover = SubResource( 2 )
+custom_styles/pressed = SubResource( 2 )
+custom_styles/focus = SubResource( 2 )
+custom_styles/disabled = SubResource( 2 )
+custom_styles/normal = SubResource( 2 )
+text = "<"
+
+[node name="NextButton" type="Button" parent="QuizVBox/HBoxContainer"]
+margin_left = 330.0
+margin_right = 373.0
+margin_bottom = 85.0
+custom_fonts/font = ExtResource( 1 )
+custom_styles/hover = SubResource( 2 )
+custom_styles/pressed = SubResource( 2 )
+custom_styles/focus = SubResource( 2 )
+custom_styles/disabled = SubResource( 2 )
+custom_styles/normal = SubResource( 2 )
+text = ">"
+
+[node name="QuestionCounter" type="Label" parent="QuizVBox"]
+margin_top = 101.0
+margin_right = 600.0
+margin_bottom = 186.0
+custom_fonts/font = ExtResource( 1 )
+custom_styles/normal = SubResource( 1 )
+text = "1/1"
+align = 1
+
+[node name="EditButton" type="Button" parent="."]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -200.0
+margin_top = 100.0
+margin_right = -100.0
+margin_bottom = 43.0
+rect_min_size = Vector2( 100, 0 )
+text = "Edit"
+
+[connection signal="pressed" from="QuizVBox/HBoxContainer/PreviousButton" to="." method="_on_PreviousButton_pressed"]
+[connection signal="pressed" from="QuizVBox/HBoxContainer/NextButton" to="." method="_on_NextButton_pressed"]
+[connection signal="pressed" from="EditButton" to="." method="_on_EditButton_pressed"]

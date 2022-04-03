@@ -1,0 +1,37 @@
+[gd_scene load_steps=5 format=2]
+
+[sub_resource type="Shader" id=1]
+code = "shader_type canvas_item;
+
+uniform vec4 color = vec4(0.0, 1.0, 0.0, 1.0);
+uniform float speed = 0.3;
+uniform float width = 3.0;
+
+void fragment(){
+	float x = (UV.x -.5)*2.0;
+	float y = (UV.y -.5)*2.0;
+	float u = cos(TIME*speed*x/90.0)/12.0;
+	float a = (sin(TIME)+1.0)/2.0;
+	float t = mod(TIME*speed, 1.0);
+	vec4 tex = color * texture(TEXTURE, vec2(x+t,y/2.0 + u)).r;
+	COLOR = vec4(tex.rgb, 1.0 - pow(abs(y+u),0.6));
+}"
+
+[sub_resource type="ShaderMaterial" id=2]
+shader = SubResource( 1 )
+shader_param/color = Plane( 0, 1, 0, 1 )
+shader_param/speed = 0.3
+shader_param/width = 3.0
+
+[sub_resource type="OpenSimplexNoise" id=3]
+
+[sub_resource type="NoiseTexture" id=4]
+seamless = true
+noise = SubResource( 3 )
+
+[node name="Link" type="Line2D"]
+material = SubResource( 2 )
+points = PoolVector2Array( 1184, 937, 3332, 920 )
+default_color = Color( 1, 1, 1, 1 )
+texture = SubResource( 4 )
+texture_mode = 2

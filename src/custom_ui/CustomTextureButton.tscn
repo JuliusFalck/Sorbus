@@ -1,0 +1,18 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://src/custom_ui/CustomTextureButton.gd" type="Script" id=1]
+
+[node name="CustomTextureButton" type="TextureButton"]
+modulate = Color( 0.95, 0.95, 0.95, 1 )
+margin_right = 40.0
+margin_bottom = 40.0
+expand = true
+stretch_mode = 5
+script = ExtResource( 1 )
+c_color = "Green"
+
+[connection signal="button_down" from="." to="." method="_on_TextureButton_button_down"]
+[connection signal="button_up" from="." to="." method="_on_TextureButton_button_up"]
+[connection signal="mouse_entered" from="." to="." method="_on_TextureButton_mouse_entered"]
+[connection signal="mouse_exited" from="." to="." method="_on_TextureButton_mouse_exited"]
+[connection signal="visibility_changed" from="." to="." method="_on_CustomTextureButton_visibility_changed"]

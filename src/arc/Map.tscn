@@ -1,0 +1,140 @@
+[gd_scene load_steps=10 format=2]
+
+[ext_resource path="res://src/arc/Map.gd" type="Script" id=1]
+[ext_resource path="res://src/arc/MapViewport.gd" type="Script" id=2]
+[ext_resource path="res://src/ui/map/NodeTypePicker.tscn" type="PackedScene" id=4]
+[ext_resource path="res://res/icons/icon_Move.svg" type="Texture" id=6]
+[ext_resource path="res://res/icons/icon_Plus.svg" type="Texture" id=7]
+[ext_resource path="res://src/custom_ui/CustomTextureButton.tscn" type="PackedScene" id=8]
+[ext_resource path="res://res/icons/icon_Link.svg" type="Texture" id=9]
+[ext_resource path="res://src/ui/map/SearchPanel.tscn" type="PackedScene" id=10]
+[ext_resource path="res://src/ui/map/NodeInspector.tscn" type="PackedScene" id=11]
+
+[node name="Map" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 1 )
+
+[node name="MapContainer" type="ViewportContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+stretch = true
+
+[node name="MapViewport" type="Viewport" parent="MapContainer"]
+size = Vector2( 3840, 2060 )
+handle_input_locally = false
+usage = 0
+render_target_update_mode = 3
+script = ExtResource( 2 )
+
+[node name="World" type="Control" parent="MapContainer/MapViewport"]
+margin_right = 40.0
+margin_bottom = 40.0
+
+[node name="Links" type="Control" parent="MapContainer/MapViewport/World"]
+margin_right = 40.0
+margin_bottom = 40.0
+
+[node name="Nodes" type="Control" parent="MapContainer/MapViewport/World"]
+margin_right = 40.0
+margin_bottom = 40.0
+
+[node name="Camera" type="Camera2D" parent="MapContainer/MapViewport"]
+current = true
+zoom = Vector2( 0.2, 0.2 )
+
+[node name="MapUI" type="Control" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MapUI"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="TopBar" type="HBoxContainer" parent="MapUI/VBoxContainer"]
+margin_right = 3840.0
+margin_bottom = 120.0
+custom_constants/separation = 60
+alignment = 1
+
+[node name="LinkButton" parent="MapUI/VBoxContainer/TopBar" instance=ExtResource( 8 )]
+margin_left = 1740.0
+margin_right = 1800.0
+margin_bottom = 120.0
+rect_min_size = Vector2( 60, 60 )
+texture_normal = ExtResource( 9 )
+texture_pressed = ExtResource( 9 )
+texture_hover = ExtResource( 9 )
+texture_disabled = ExtResource( 9 )
+texture_focused = ExtResource( 9 )
+
+[node name="AddNodeButton" parent="MapUI/VBoxContainer/TopBar" instance=ExtResource( 8 )]
+margin_left = 1860.0
+margin_right = 1980.0
+margin_bottom = 120.0
+rect_min_size = Vector2( 120, 120 )
+texture_normal = ExtResource( 7 )
+texture_pressed = ExtResource( 7 )
+texture_hover = ExtResource( 7 )
+texture_disabled = ExtResource( 7 )
+texture_focused = ExtResource( 7 )
+
+[node name="MoveButton" parent="MapUI/VBoxContainer/TopBar" instance=ExtResource( 8 )]
+margin_left = 2040.0
+margin_right = 2100.0
+margin_bottom = 120.0
+rect_min_size = Vector2( 60, 60 )
+texture_normal = ExtResource( 6 )
+texture_pressed = ExtResource( 6 )
+texture_hover = ExtResource( 6 )
+texture_disabled = ExtResource( 6 )
+texture_focused = ExtResource( 6 )
+
+[node name="Center" type="Control" parent="MapUI/VBoxContainer"]
+margin_top = 128.0
+margin_right = 3840.0
+margin_bottom = 2052.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="NodeInspector" parent="MapUI/VBoxContainer/Center" instance=ExtResource( 11 )]
+anchor_left = 1.0
+anchor_bottom = 0.0
+margin_left = -900.0
+margin_right = 0.0
+margin_bottom = 1824.0
+
+[node name="SearchPanel" parent="MapUI/VBoxContainer/Center" instance=ExtResource( 10 )]
+margin_left = 0.0
+margin_right = 900.0
+margin_bottom = 1800.0
+
+[node name="BottomBar" type="HBoxContainer" parent="MapUI/VBoxContainer"]
+margin_top = 2060.0
+margin_right = 3840.0
+margin_bottom = 2060.0
+
+[node name="NodeTypePicker" parent="." instance=ExtResource( 4 )]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_right = 0.0
+margin_bottom = 0.0
+
+[node name="HBoxContainer" parent="NodeTypePicker" index="0"]
+margin_left = 1620.0
+margin_top = 930.0
+margin_right = 2220.0
+margin_bottom = 1130.0
+
+[connection signal="visibility_changed" from="." to="." method="_on_Map_visibility_changed"]
+[connection signal="pressed" from="MapUI/VBoxContainer/TopBar/LinkButton" to="." method="_on_LinkButton_pressed"]
+[connection signal="pressed" from="MapUI/VBoxContainer/TopBar/AddNodeButton" to="." method="_on_AddNodeButton_pressed"]
+[connection signal="pressed" from="MapUI/VBoxContainer/TopBar/MoveButton" to="." method="_on_MoveButton_pressed"]
+[connection signal="pressed" from="NodeTypePicker/HBoxContainer/QuizNodeTypeButton" to="." method="_on_QuizNodeTypeButton_pressed"]
+[connection signal="pressed" from="NodeTypePicker/HBoxContainer/NoteNodeTypeButton" to="." method="_on_NoteNodeTypeButton_pressed"]
+
+[editable path="NodeTypePicker"]

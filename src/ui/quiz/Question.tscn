@@ -1,0 +1,91 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://src/ui/quiz/Question.gd" type="Script" id=1]
+[ext_resource path="res://res/fonts/LargFont.tres" type="DynamicFont" id=2]
+[ext_resource path="res://src/ui/quiz/QuizBox.tscn" type="PackedScene" id=3]
+
+[sub_resource type="StyleBoxFlat" id=1]
+bg_color = Color( 0.6, 0.6, 0.6, 0 )
+
+[node name="Question" type="VBoxContainer"]
+margin_right = 600.0
+margin_bottom = 1008.0
+script = ExtResource( 1 )
+
+[node name="DeleteButton" type="Button" parent="."]
+visible = false
+margin_right = 600.0
+margin_bottom = 85.0
+custom_colors/font_color_hover = Color( 0.666667, 0, 0, 1 )
+custom_colors/font_color_pressed = Color( 0.333333, 0, 0, 1 )
+custom_fonts/font = ExtResource( 2 )
+text = "X"
+
+[node name="QuizBox" parent="." instance=ExtResource( 3 )]
+margin_right = 600.0
+margin_bottom = 400.0
+
+[node name="EditQuizBox" type="TextEdit" parent="."]
+visible = false
+margin_top = 408.0
+margin_right = 600.0
+margin_bottom = 808.0
+rect_min_size = Vector2( 0, 400 )
+mouse_default_cursor_shape = 0
+
+[node name="ScrollContainer" type="ScrollContainer" parent="."]
+margin_top = 408.0
+margin_right = 600.0
+margin_bottom = 1008.0
+rect_min_size = Vector2( 600, 600 )
+size_flags_horizontal = 4
+size_flags_vertical = 4
+scroll_horizontal_enabled = false
+
+[node name="CenterContainer" type="CenterContainer" parent="ScrollContainer"]
+margin_right = 600.0
+margin_bottom = 600.0
+rect_min_size = Vector2( 600, 600 )
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="Answers" type="VBoxContainer" parent="ScrollContainer/CenterContainer"]
+margin_left = 300.0
+margin_top = 300.0
+margin_right = 300.0
+margin_bottom = 300.0
+custom_constants/separation = 12
+
+[node name="EditAnswers" type="VBoxContainer" parent="ScrollContainer/CenterContainer"]
+visible = false
+margin_left = 300.0
+margin_top = 300.0
+margin_right = 300.0
+margin_bottom = 300.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_constants/separation = 12
+
+[node name="AddAnswerButton" type="Button" parent="."]
+visible = false
+margin_top = 1016.0
+margin_right = 600.0
+margin_bottom = 1059.0
+custom_fonts/font = ExtResource( 2 )
+custom_styles/hover = SubResource( 1 )
+custom_styles/pressed = SubResource( 1 )
+custom_styles/focus = SubResource( 1 )
+custom_styles/disabled = SubResource( 1 )
+custom_styles/normal = SubResource( 1 )
+text = "+"
+
+[node name="EmptyBox" type="ColorRect" parent="."]
+margin_top = 1016.0
+margin_right = 600.0
+margin_bottom = 1101.0
+rect_min_size = Vector2( 85, 85 )
+color = Color( 1, 1, 1, 0 )
+
+[connection signal="pressed" from="DeleteButton" to="." method="_on_DeleteButton_pressed"]
+[connection signal="text_changed" from="EditQuizBox" to="." method="_on_EditQuizBox_text_changed"]
+[connection signal="pressed" from="AddAnswerButton" to="." method="_on_AddAnswerButton_pressed"]

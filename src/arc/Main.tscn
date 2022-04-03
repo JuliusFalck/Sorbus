@@ -1,0 +1,59 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://src/arc/Main.gd" type="Script" id=1]
+[ext_resource path="res://src/arc/Map.tscn" type="PackedScene" id=2]
+[ext_resource path="res://src/arc/View.tscn" type="PackedScene" id=3]
+[ext_resource path="res://src/arc/List.tscn" type="PackedScene" id=4]
+
+[node name="Main" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="ColorRect" type="ColorRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0.0823529, 0.0823529, 0.0823529, 1 )
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+size_flags_horizontal = 3
+
+[node name="MainView" type="TabContainer" parent="VBoxContainer"]
+margin_right = 3840.0
+margin_bottom = 2060.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_constants/hseparation = 200
+
+[node name="View" parent="VBoxContainer/MainView" instance=ExtResource( 3 )]
+margin_top = 63.0
+
+[node name="Map" parent="VBoxContainer/MainView" instance=ExtResource( 2 )]
+visible = false
+
+[node name="List" parent="VBoxContainer/MainView" instance=ExtResource( 4 )]
+visible = false
+
+[node name="FileDialog" type="FileDialog" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -600.0
+margin_top = -450.0
+margin_right = 600.0
+margin_bottom = 450.0
+rect_min_size = Vector2( 1200, 900 )
+window_title = "Open a File"
+mode = 0
+
+[connection signal="tab_changed" from="VBoxContainer/MainView" to="." method="_on_MainView_tab_changed"]
+[connection signal="file_selected" from="FileDialog" to="." method="_on_FileDialog_file_selected"]

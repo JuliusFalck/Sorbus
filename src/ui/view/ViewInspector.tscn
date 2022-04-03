@@ -1,0 +1,142 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://src/custom_ui/CustomTextureButton.tscn" type="PackedScene" id=1]
+[ext_resource path="res://src/ui/general/VisibilityButton.tscn" type="PackedScene" id=2]
+[ext_resource path="res://res/fonts/LargFont.tres" type="DynamicFont" id=3]
+[ext_resource path="res://res/icons/icon_Quiz.svg" type="Texture" id=4]
+[ext_resource path="res://res/icons/icon_X.svg" type="Texture" id=5]
+
+[node name="ViewInspector" type="Control"]
+margin_right = 24.0
+margin_bottom = 24.0
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+show_behind_parent = true
+margin_left = 12.0
+margin_top = 12.0
+margin_right = 440.0
+margin_bottom = 1836.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer"]
+margin_left = 12.0
+margin_top = 12.0
+margin_right = 416.0
+margin_bottom = 1812.0
+rect_min_size = Vector2( 0, 1800 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_constants/separation = 0
+
+[node name="Control" type="Control" parent="PanelContainer/VBoxContainer"]
+margin_right = 404.0
+margin_bottom = 264.0
+rect_min_size = Vector2( 0, 264 )
+size_flags_horizontal = 3
+
+[node name="Icon" type="TextureButton" parent="PanelContainer/VBoxContainer/Control"]
+margin_left = 12.0
+margin_top = 12.0
+margin_right = 252.0
+margin_bottom = 252.0
+rect_min_size = Vector2( 240, 240 )
+size_flags_horizontal = 0
+texture_normal = ExtResource( 4 )
+texture_pressed = ExtResource( 4 )
+texture_hover = ExtResource( 4 )
+texture_disabled = ExtResource( 4 )
+texture_focused = ExtResource( 4 )
+expand = true
+stretch_mode = 4
+
+[node name="CustomTextureButton" parent="PanelContainer/VBoxContainer/Control" instance=ExtResource( 1 )]
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -72.0
+margin_top = -72.0
+margin_right = -12.0
+margin_bottom = -12.0
+rect_min_size = Vector2( 60, 60 )
+texture_normal = ExtResource( 5 )
+texture_pressed = ExtResource( 5 )
+texture_hover = ExtResource( 5 )
+texture_disabled = ExtResource( 5 )
+texture_focused = ExtResource( 5 )
+toggle = false
+c_color = "Red"
+
+[node name="Title" type="LineEdit" parent="PanelContainer/VBoxContainer"]
+margin_top = 264.0
+margin_right = 404.0
+margin_bottom = 369.0
+custom_fonts/font = ExtResource( 3 )
+caret_blink = true
+caret_blink_speed = 0.5
+
+[node name="Info" type="ScrollContainer" parent="PanelContainer/VBoxContainer"]
+margin_top = 369.0
+margin_right = 404.0
+margin_bottom = 1084.0
+size_flags_vertical = 3
+
+[node name="VBoxContainer" type="GridContainer" parent="PanelContainer/VBoxContainer/Info"]
+margin_right = 8.0
+margin_bottom = 145.0
+columns = 2
+
+[node name="TypeLabel" type="Label" parent="PanelContainer/VBoxContainer/Info/VBoxContainer"]
+margin_bottom = 43.0
+
+[node name="Type" type="Label" parent="PanelContainer/VBoxContainer/Info/VBoxContainer"]
+margin_left = 8.0
+margin_right = 8.0
+margin_bottom = 43.0
+
+[node name="SizeLabel" type="Label" parent="PanelContainer/VBoxContainer/Info/VBoxContainer"]
+margin_top = 51.0
+margin_bottom = 94.0
+
+[node name="Size" type="Label" parent="PanelContainer/VBoxContainer/Info/VBoxContainer"]
+margin_left = 8.0
+margin_top = 51.0
+margin_right = 8.0
+margin_bottom = 94.0
+
+[node name="PopLabel" type="Label" parent="PanelContainer/VBoxContainer/Info/VBoxContainer"]
+margin_top = 102.0
+margin_bottom = 145.0
+
+[node name="Pop" type="Label" parent="PanelContainer/VBoxContainer/Info/VBoxContainer"]
+margin_left = 8.0
+margin_top = 102.0
+margin_right = 8.0
+margin_bottom = 145.0
+
+[node name="Links" type="ScrollContainer" parent="PanelContainer/VBoxContainer"]
+margin_top = 1084.0
+margin_right = 404.0
+margin_bottom = 1800.0
+size_flags_vertical = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/VBoxContainer/Links"]
+margin_right = 404.0
+margin_bottom = 716.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="PanelContainer/VBoxContainer/Links/VBoxContainer"]
+margin_right = 404.0
+margin_bottom = 43.0
+text = "Links:"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/VBoxContainer/Links/VBoxContainer"]
+margin_top = 51.0
+margin_right = 404.0
+margin_bottom = 51.0
+
+[node name="VisibilityButton" parent="." instance=ExtResource( 2 )]
+margin_left = 12.0
+margin_top = 12.0
+margin_right = 440.0
+margin_bottom = 1836.0

@@ -1,0 +1,60 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://src/custom_ui/CustomTextureButton.tscn" type="PackedScene" id=1]
+[ext_resource path="res://res/icons/icon_Quiz.svg" type="Texture" id=2]
+[ext_resource path="res://res/icons/icon_Figure.svg" type="Texture" id=3]
+[ext_resource path="res://res/icons/icon_Note.svg" type="Texture" id=4]
+
+[node name="NodeTypePicker" type="CenterContainer"]
+margin_right = 600.0
+margin_bottom = 200.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+margin_right = 600.0
+margin_bottom = 200.0
+rect_min_size = Vector2( 600, 200 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_constants/separation = 60
+alignment = 1
+
+[node name="QuizNodeTypeButton" parent="HBoxContainer" instance=ExtResource( 1 )]
+margin_right = 140.0
+margin_bottom = 200.0
+size_flags_horizontal = 3
+texture_normal = ExtResource( 2 )
+texture_pressed = ExtResource( 2 )
+texture_hover = ExtResource( 2 )
+texture_disabled = ExtResource( 2 )
+texture_focused = ExtResource( 2 )
+toggle = false
+
+[node name="NoteNodeTypeButton" parent="HBoxContainer" instance=ExtResource( 1 )]
+margin_left = 200.0
+margin_right = 340.0
+margin_bottom = 200.0
+size_flags_horizontal = 3
+texture_normal = ExtResource( 4 )
+texture_pressed = ExtResource( 4 )
+texture_hover = ExtResource( 4 )
+texture_disabled = ExtResource( 4 )
+texture_focused = ExtResource( 4 )
+toggle = false
+
+[node name="FigureNodeTypeButton" parent="HBoxContainer" instance=ExtResource( 1 )]
+margin_left = 400.0
+margin_right = 540.0
+margin_bottom = 200.0
+size_flags_horizontal = 3
+texture_normal = ExtResource( 3 )
+texture_pressed = ExtResource( 3 )
+texture_hover = ExtResource( 3 )
+texture_disabled = ExtResource( 3 )
+texture_focused = ExtResource( 3 )
+toggle = false
+
+[node name="ChartNodeTypeButton" parent="HBoxContainer" instance=ExtResource( 1 )]
+margin_left = 600.0
+margin_right = 600.0
+margin_bottom = 200.0
+toggle = false
