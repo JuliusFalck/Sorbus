@@ -1,9 +1,9 @@
 [gd_scene load_steps=5 format=2]
 
-[ext_resource path="res://src/arc/Main.gd" type="Script" id=1]
-[ext_resource path="res://src/arc/Map.tscn" type="PackedScene" id=2]
-[ext_resource path="res://src/arc/View.tscn" type="PackedScene" id=3]
-[ext_resource path="res://src/arc/List.tscn" type="PackedScene" id=4]
+[ext_resource path="res://src/main/Main.gd" type="Script" id=1]
+[ext_resource path="res://src/map/Map.tscn" type="PackedScene" id=2]
+[ext_resource path="res://src/view/View.tscn" type="PackedScene" id=3]
+[ext_resource path="res://src/list/List.tscn" type="PackedScene" id=4]
 
 [node name="Main" type="Control"]
 anchor_right = 1.0

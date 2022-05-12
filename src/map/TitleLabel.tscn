@@ -1,0 +1,17 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://TitleLabel.gd" type="Script" id=1]
+[ext_resource path="res://res/fonts/SmalFont.tres" type="DynamicFont" id=2]
+
+[sub_resource type="StyleBoxEmpty" id=1]
+
+[node name="TitleLabel" type="Label"]
+margin_right = 40.0
+margin_bottom = 43.0
+rect_scale = Vector2( 0.1, 0.1 )
+custom_fonts/font = ExtResource( 2 )
+custom_styles/normal = SubResource( 1 )
+text = "aefghsdfg"
+align = 1
+valign = 1
+script = ExtResource( 1 )

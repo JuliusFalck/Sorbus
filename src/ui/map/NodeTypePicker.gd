@@ -1,4 +1,4 @@
-extends Node
+extends Control
 
 
 #==Variables==#
@@ -22,5 +22,5 @@ extends Node
 #=Signals=#
 
 
-func _on_OpenButton_pressed() -> void:
-	Main.view.open(Main.map.selected)
+func _on_CloseButton_pressed() -> void:
+	visible = false

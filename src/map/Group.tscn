@@ -1,0 +1,53 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://src/ui/nodes/NodeIcon.tscn" type="PackedScene" id=1]
+[ext_resource path="res://src/map/GroupShape.tscn" type="PackedScene" id=2]
+[ext_resource path="res://src/map/Group.gd" type="Script" id=3]
+[ext_resource path="res://src/map/TitleLabel.tscn" type="PackedScene" id=4]
+
+[sub_resource type="Shader" id=1]
+code = "shader_type canvas_item;
+
+uniform sampler2D mask;
+
+void fragment(){
+	 vec4 colour = texture(TEXTURE, UV);
+    colour.a *= texture(mask, UV).a;
+
+    COLOR = colour;
+}"
+
+[sub_resource type="ShaderMaterial" id=2]
+resource_local_to_scene = true
+shader = SubResource( 1 )
+
+[node name="Group" type="Control"]
+margin_right = 40.0
+margin_bottom = 40.0
+script = ExtResource( 3 )
+
+[node name="NodeIcon" parent="." instance=ExtResource( 1 )]
+margin_right = 40.0
+margin_bottom = 40.0
+
+[node name="CustomTexture" parent="NodeIcon" index="0"]
+material = SubResource( 2 )
+margin_right = 40.0
+margin_bottom = 40.0
+
+[node name="NodeButton" parent="NodeIcon" index="1"]
+margin_right = 40.0
+margin_bottom = 40.0
+
+[node name="GroupShape" parent="." instance=ExtResource( 2 )]
+
+[node name="TitleLabel" parent="." instance=ExtResource( 4 )]
+
+[connection signal="renamed" from="." to="." method="_on_Group_renamed"]
+[connection signal="button_down" from="NodeIcon/NodeButton" to="." method="_on_NodeButton_button_down"]
+[connection signal="button_up" from="NodeIcon/NodeButton" to="." method="_on_NodeButton_button_up"]
+[connection signal="mouse_entered" from="NodeIcon/NodeButton" to="." method="_on_NodeButton_mouse_entered"]
+[connection signal="mouse_exited" from="NodeIcon/NodeButton" to="." method="_on_NodeButton_mouse_exited"]
+[connection signal="pressed" from="NodeIcon/NodeButton" to="." method="_on_NodeButton_pressed"]
+
+[editable path="NodeIcon"]

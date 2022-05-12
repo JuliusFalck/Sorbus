@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=2]
+[gd_resource type="ShaderMaterial" load_steps=2 format=2]
 
 [sub_resource type="Shader" id=1]
 code = "shader_type canvas_item;
@@ -17,21 +17,8 @@ void fragment(){
 	COLOR = vec4(tex.rgb, 1.0 - pow(abs(y+u),0.6));
 }"
 
-[sub_resource type="ShaderMaterial" id=2]
+[resource]
 shader = SubResource( 1 )
 shader_param/color = Plane( 0, 1, 0, 1 )
 shader_param/speed = 0.3
 shader_param/width = 3.0
-
-[sub_resource type="OpenSimplexNoise" id=3]
-
-[sub_resource type="NoiseTexture" id=4]
-seamless = true
-noise = SubResource( 3 )
-
-[node name="Link" type="Line2D"]
-material = SubResource( 2 )
-points = PoolVector2Array( 1184, 937, 3332, 920 )
-default_color = Color( 1, 1, 1, 1 )
-texture = SubResource( 4 )
-texture_mode = 2

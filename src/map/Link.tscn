@@ -1,0 +1,31 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://src/map/Link.gd" type="Script" id=1]
+
+[sub_resource type="Shader" id=1]
+code = "shader_type canvas_item;
+
+
+void fragment(){
+	
+	COLOR = vec4(texture(TEXTURE, UV).rgb, 1.0 - pow((UV.y-0.5)*2.0,2.0));
+}"
+
+[sub_resource type="ShaderMaterial" id=2]
+shader = SubResource( 1 )
+
+[sub_resource type="Gradient" id=3]
+offsets = PoolRealArray( 0, 0.5, 1 )
+colors = PoolColorArray( 0, 0.666667, 0, 1, 0, 0.333333, 0, 1, 0, 0.666667, 0, 1 )
+
+[sub_resource type="GradientTexture" id=4]
+gradient = SubResource( 3 )
+
+[node name="Link" type="Line2D"]
+material = SubResource( 2 )
+points = PoolVector2Array( 835, 915, 1245.71, 935.98, 1746, 951 )
+width = 5.0
+default_color = Color( 0, 0.5, 0, 1 )
+texture = SubResource( 4 )
+texture_mode = 2
+script = ExtResource( 1 )

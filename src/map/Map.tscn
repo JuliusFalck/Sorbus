@@ -1,8 +1,10 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=12 format=2]
 
-[ext_resource path="res://src/arc/Map.gd" type="Script" id=1]
-[ext_resource path="res://src/arc/MapViewport.gd" type="Script" id=2]
+[ext_resource path="res://src/map/Map.gd" type="Script" id=1]
+[ext_resource path="res://src/map/MapViewport.gd" type="Script" id=2]
+[ext_resource path="res://src/map/NewObjectPopup.tscn" type="PackedScene" id=3]
 [ext_resource path="res://src/ui/map/NodeTypePicker.tscn" type="PackedScene" id=4]
+[ext_resource path="res://res/icons/icon_Group_Tool.svg" type="Texture" id=5]
 [ext_resource path="res://res/icons/icon_Move.svg" type="Texture" id=6]
 [ext_resource path="res://res/icons/icon_Plus.svg" type="Texture" id=7]
 [ext_resource path="res://src/custom_ui/CustomTextureButton.tscn" type="PackedScene" id=8]
@@ -37,6 +39,10 @@ margin_bottom = 40.0
 margin_right = 40.0
 margin_bottom = 40.0
 
+[node name="Groups" type="Control" parent="MapContainer/MapViewport/World"]
+margin_right = 40.0
+margin_bottom = 40.0
+
 [node name="Nodes" type="Control" parent="MapContainer/MapViewport/World"]
 margin_right = 40.0
 margin_bottom = 40.0
@@ -61,8 +67,8 @@ custom_constants/separation = 60
 alignment = 1
 
 [node name="LinkButton" parent="MapUI/VBoxContainer/TopBar" instance=ExtResource( 8 )]
-margin_left = 1740.0
-margin_right = 1800.0
+margin_left = 1680.0
+margin_right = 1740.0
 margin_bottom = 120.0
 rect_min_size = Vector2( 60, 60 )
 texture_normal = ExtResource( 9 )
@@ -71,9 +77,20 @@ texture_hover = ExtResource( 9 )
 texture_disabled = ExtResource( 9 )
 texture_focused = ExtResource( 9 )
 
+[node name="GroupButton" parent="MapUI/VBoxContainer/TopBar" instance=ExtResource( 8 )]
+margin_left = 1800.0
+margin_right = 1860.0
+margin_bottom = 120.0
+rect_min_size = Vector2( 60, 60 )
+texture_normal = ExtResource( 5 )
+texture_pressed = ExtResource( 5 )
+texture_hover = ExtResource( 5 )
+texture_disabled = ExtResource( 5 )
+texture_focused = ExtResource( 5 )
+
 [node name="AddNodeButton" parent="MapUI/VBoxContainer/TopBar" instance=ExtResource( 8 )]
-margin_left = 1860.0
-margin_right = 1980.0
+margin_left = 1920.0
+margin_right = 2040.0
 margin_bottom = 120.0
 rect_min_size = Vector2( 120, 120 )
 texture_normal = ExtResource( 7 )
@@ -83,8 +100,8 @@ texture_disabled = ExtResource( 7 )
 texture_focused = ExtResource( 7 )
 
 [node name="MoveButton" parent="MapUI/VBoxContainer/TopBar" instance=ExtResource( 8 )]
-margin_left = 2040.0
-margin_right = 2100.0
+margin_left = 2100.0
+margin_right = 2160.0
 margin_bottom = 120.0
 rect_min_size = Vector2( 60, 60 )
 texture_normal = ExtResource( 6 )
@@ -102,10 +119,12 @@ size_flags_vertical = 3
 
 [node name="NodeInspector" parent="MapUI/VBoxContainer/Center" instance=ExtResource( 11 )]
 anchor_left = 1.0
-anchor_bottom = 0.0
+anchor_top = 0.5
+anchor_bottom = 0.5
 margin_left = -900.0
+margin_top = -800.0
 margin_right = 0.0
-margin_bottom = 1824.0
+margin_bottom = 800.0
 
 [node name="SearchPanel" parent="MapUI/VBoxContainer/Center" instance=ExtResource( 10 )]
 margin_left = 0.0
@@ -118,23 +137,17 @@ margin_right = 3840.0
 margin_bottom = 2060.0
 
 [node name="NodeTypePicker" parent="." instance=ExtResource( 4 )]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_right = 0.0
-margin_bottom = 0.0
 
-[node name="HBoxContainer" parent="NodeTypePicker" index="0"]
-margin_left = 1620.0
-margin_top = 930.0
-margin_right = 2220.0
-margin_bottom = 1130.0
+[node name="NewObjectPopup" parent="." instance=ExtResource( 3 )]
+visible = false
 
 [connection signal="visibility_changed" from="." to="." method="_on_Map_visibility_changed"]
 [connection signal="pressed" from="MapUI/VBoxContainer/TopBar/LinkButton" to="." method="_on_LinkButton_pressed"]
+[connection signal="pressed" from="MapUI/VBoxContainer/TopBar/GroupButton" to="." method="_on_GroupButton_pressed"]
 [connection signal="pressed" from="MapUI/VBoxContainer/TopBar/AddNodeButton" to="." method="_on_AddNodeButton_pressed"]
 [connection signal="pressed" from="MapUI/VBoxContainer/TopBar/MoveButton" to="." method="_on_MoveButton_pressed"]
-[connection signal="pressed" from="NodeTypePicker/HBoxContainer/QuizNodeTypeButton" to="." method="_on_QuizNodeTypeButton_pressed"]
-[connection signal="pressed" from="NodeTypePicker/HBoxContainer/NoteNodeTypeButton" to="." method="_on_NoteNodeTypeButton_pressed"]
+[connection signal="pressed" from="NodeTypePicker/CloseButton" to="." method="_on_CloseButton_pressed"]
+[connection signal="pressed" from="NodeTypePicker/CenterContainer/HBoxContainer/QuizNodeTypeButton" to="." method="_on_QuizNodeTypeButton_pressed"]
+[connection signal="pressed" from="NodeTypePicker/CenterContainer/HBoxContainer/NoteNodeTypeButton" to="." method="_on_NoteNodeTypeButton_pressed"]
 
 [editable path="NodeTypePicker"]

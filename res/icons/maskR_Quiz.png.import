@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/mask_Note.png-d7199c782965f7222209d6f2e59e267b.stex"
+path="res://.import/maskR_Quiz.png-a2e46c76d4e77b8d5b06dc1ca2811979.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://res/icons/mask_Note.png"
-dest_files=[ "res://.import/mask_Note.png-d7199c782965f7222209d6f2e59e267b.stex" ]
+source_file="res://res/icons/maskR_Quiz.png"
+dest_files=[ "res://.import/maskR_Quiz.png-a2e46c76d4e77b8d5b06dc1ca2811979.stex" ]
 
 [params]
 
@@ -20,7 +20,7 @@ compress/hdr_mode=0
 compress/bptc_ldr=0
 compress/normal_map=0
 flags/repeat=0
-flags/filter=true
+flags/filter=false
 flags/mipmaps=false
 flags/anisotropic=false
 flags/srgb=2

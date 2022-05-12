@@ -23,4 +23,7 @@ extends Button
 
 
 func _on_NodeLinkButton_pressed() -> void:
-	Main.map.nodes.get_node(text).select(true)
+	if Main.c_view == Main.map:
+		Main.map.nodes.get_node(text).select(true)
+	elif Main.c_view == Main.view:
+		Main.view.open(Main.map.nodes.get_node(text))

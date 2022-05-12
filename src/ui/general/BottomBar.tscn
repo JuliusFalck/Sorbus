@@ -1,0 +1,14 @@
+[gd_scene format=2]
+
+[node name="BottomBar" type="PanelContainer"]
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = -24.0
+rect_min_size = Vector2( 0, 150 )
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+margin_left = 12.0
+margin_top = 12.0
+margin_right = 3828.0
+margin_bottom = 138.0

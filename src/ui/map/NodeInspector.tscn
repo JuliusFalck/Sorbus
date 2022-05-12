@@ -1,6 +1,5 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
-[ext_resource path="res://src/ui/map/OpenButton.tscn" type="PackedScene" id=1]
 [ext_resource path="res://src/ui/nodes/NodeIcon.tscn" type="PackedScene" id=2]
 [ext_resource path="res://res/fonts/LargFont.tres" type="DynamicFont" id=3]
 [ext_resource path="res://src/ui/map/NodeInspector.gd" type="Script" id=4]
@@ -8,25 +7,42 @@
 [ext_resource path="res://res/icons/icon_X.svg" type="Texture" id=6]
 [ext_resource path="res://src/custom_ui/CustomTextureButton.tscn" type="PackedScene" id=7]
 
+[sub_resource type="Shader" id=1]
+code = "shader_type canvas_item;
+
+uniform sampler2D mask;
+
+void fragment(){
+	 vec4 colour = texture(TEXTURE, UV);
+    colour.a *= texture(mask, UV).a;
+
+    COLOR = colour;
+}"
+
+[sub_resource type="ShaderMaterial" id=2]
+resource_local_to_scene = true
+shader = SubResource( 1 )
+
 [node name="NodeInspector" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_right = -2940.0
-margin_bottom = -260.0
-rect_min_size = Vector2( 0, 1800 )
+margin_bottom = -460.0
+rect_min_size = Vector2( 0, 1600 )
 script = ExtResource( 4 )
+mode = "Map"
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
 show_behind_parent = true
 margin_right = 900.0
-margin_bottom = 1824.0
+margin_bottom = 1624.0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer"]
 margin_left = 12.0
 margin_top = 12.0
 margin_right = 888.0
-margin_bottom = 1812.0
-rect_min_size = Vector2( 0, 1800 )
+margin_bottom = 1612.0
+rect_min_size = Vector2( 0, 1600 )
 size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_constants/separation = 0
@@ -41,6 +57,9 @@ size_flags_horizontal = 3
 margin_left = 12.0
 margin_top = 12.0
 rect_min_size = Vector2( 240, 240 )
+
+[node name="CustomTexture" parent="PanelContainer/VBoxContainer/Control/NodeIcon" index="0"]
+material = SubResource( 2 )
 
 [node name="CustomTextureButton" parent="PanelContainer/VBoxContainer/Control" instance=ExtResource( 7 )]
 anchor_left = 1.0
@@ -71,7 +90,7 @@ caret_blink_speed = 0.5
 [node name="Info" type="ScrollContainer" parent="PanelContainer/VBoxContainer"]
 margin_top = 369.0
 margin_right = 876.0
-margin_bottom = 1054.0
+margin_bottom = 963.0
 size_flags_vertical = 3
 
 [node name="VBoxContainer" type="GridContainer" parent="PanelContainer/VBoxContainer/Info"]
@@ -108,14 +127,14 @@ margin_right = 8.0
 margin_bottom = 145.0
 
 [node name="Links" type="ScrollContainer" parent="PanelContainer/VBoxContainer"]
-margin_top = 1054.0
+margin_top = 963.0
 margin_right = 876.0
-margin_bottom = 1740.0
+margin_bottom = 1557.0
 size_flags_vertical = 3
 
 [node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/VBoxContainer/Links"]
 margin_right = 876.0
-margin_bottom = 686.0
+margin_bottom = 594.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
@@ -130,15 +149,15 @@ margin_right = 876.0
 margin_bottom = 51.0
 
 [node name="CenterContainer" type="CenterContainer" parent="PanelContainer/VBoxContainer"]
-margin_top = 1740.0
+margin_top = 1557.0
 margin_right = 876.0
-margin_bottom = 1800.0
+margin_bottom = 1600.0
 
-[node name="OpenButton" parent="PanelContainer/VBoxContainer/CenterContainer" instance=ExtResource( 1 )]
-margin_left = 318.0
-margin_right = 558.0
-margin_bottom = 60.0
-rect_min_size = Vector2( 240, 60 )
+[node name="BottomButton" type="Button" parent="PanelContainer/VBoxContainer/CenterContainer"]
+margin_left = 394.0
+margin_right = 482.0
+margin_bottom = 43.0
+text = "Open"
 
 [node name="VisibilityButton" parent="." instance=ExtResource( 5 )]
 anchor_left = 1.0
@@ -150,5 +169,6 @@ rect_scale = Vector2( -1, 1 )
 [connection signal="mouse_exited" from="PanelContainer/VBoxContainer/Control/NodeIcon/NodeButton" to="." method="_on_Icon_mouse_exited"]
 [connection signal="pressed" from="PanelContainer/VBoxContainer/Control/NodeIcon/NodeButton" to="." method="_on_Icon_pressed"]
 [connection signal="focus_exited" from="PanelContainer/VBoxContainer/Title" to="." method="_on_Title_focus_exited"]
+[connection signal="pressed" from="PanelContainer/VBoxContainer/CenterContainer/BottomButton" to="." method="_on_BottomButton_pressed"]
 
 [editable path="PanelContainer/VBoxContainer/Control/NodeIcon"]

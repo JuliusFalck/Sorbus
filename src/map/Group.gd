@@ -1,27 +1,21 @@
 extends Control
 
-tool
+
+#==Variables==#
+#=Children=#
+onready var shape = $GroupShape
 onready var icon = $NodeIcon
 onready var title = $TitleLabel
 
-
-#=Saved=#
-
-export (String, "Note", "Quiz", "Image", "Chart") var type setget _set_type
-
-var pos = Vector2(0, 0) setget _set_pos
-
-var size = 1 setget _set_size
+#=Misc=Vars=#
+var type = "Group"
 var linked_nodes = [] 
-
 var links = {}
-
 var texture_path setget set_texture_path
 
-var groups = []
-
-
-#=Not=Saved=#
+var res = 216
+var speed = 1
+var radius = 60
 var selected = false setget set_selected
 var start_pos = Vector2()
 var move = false
@@ -29,59 +23,69 @@ var double = false
 var pre_select = false
 
 
+#=Saved=#
 
+var elements = [] setget _set_elements
+var perimiter = []
+var background_color
+var background_texture
+var perimiter_width
+var perimiter_color
+var perimiter_texture
+var size = 1 setget _set_size
+var pos setget _set_pos
 
-
+var keywords = []
 
 #==Functions==#
 
+
 #=Inbuilds=#
 func _ready() -> void:
-	self.size = size
-
-func _process(delta: float) -> void:
-	if move:
-		var d = get_global_mouse_position() - start_pos
-		self.pos += d
-		for i in groups:
-			Main.map.groups.get_node(i).update_perimiter()
-		for l in links.keys():
-			var link = Main.map.links.get_node(l)
-			link.points[links[l]] = link.points[links[l]] + d
-		start_pos = get_global_mouse_position()
-
+	icon.type = "Group"
+	open()
 
 #=Setters=#
-func _set_type(t):
-	type = t
-	if icon:
-		icon.type = t
-	
 func _set_size(s):
 	size = s
-	rect_scale = Vector2(s, s)
-	self.pos = pos
-
-
+	radius = s
 
 func _set_pos(p):
-	pos = Vector2(p[0], p[1])
-	rect_position = pos - icon.rect_size*rect_scale/2
-	
-	
+	pos = p
+	rect_position = p - rect_size/2.0
+
+
 func set_selected(s):
 	selected = s
 	if selected:
 		icon.nodeButton.modulate = Global.color_palette[1]
 	else:
 		icon.nodeButton.modulate = Color(1, 1, 1, 1)
-
+	
+	
 func set_texture_path(t):
 	if t:
 		texture_path = t
 		icon.c_texture = load(t)
-	
 
+
+
+func _set_elements(e):
+	print("elements")
+	elements = e
+	for i in elements:
+		if !Main.map.nodes.get_node(i).groups.has(name):
+			Main.map.nodes.get_node(i).groups.append(name)
+
+
+#=Getters=#
+
+
+#=Custom=#
+
+func update_perimiter():
+	perimiter = Global.make_group_perimiter(elements, rect_position)
+	shape.perimiter = perimiter
 
 func select(s):
 	self.selected = s
@@ -102,33 +106,33 @@ func select(s):
 			else:
 				Main.map.selects = []
 
-#=Getters=#
+func open():
+	icon.visible = false
+	shape.open()
+	var closed_perimiter = []
+	update_perimiter()
+	for i in range(len(perimiter)):
+		closed_perimiter.append(Vector2(cos(TAU/len(perimiter)*i), sin(TAU/len(perimiter)*i))*radius)
+		
+	shape.perimiter = perimiter
+#	for i in range(len(perimiter)):
+#		var tween = Tween.new()
+#		tween.interpolate_property(shape, "perimiter["+ str(i) +"]", null, perimiter[i], 1/speed, Tween.TRANS_LINEAR)
+#
+	for i in elements:
+		Main.map.nodes.get_node(i).visible = true
+	
+func close():
+	var closed_perimiter = []
+	for i in range(res):
+		closed_perimiter.append(Vector2(cos(TAU/res*i), sin(TAU/res*i))*radius)
+		
+	for i in range(res):
+		var tween = Tween.new()
+		tween.interpolate_property(shape, "perimiter["+ str(i) +"]", null, closed_perimiter, 1/speed, Tween.TRANS_LINEAR)
+	for i in elements:
+		Main.map.nodes.get_node(i).visible = false
 
-#=Custom=#
-
-func make():
-	var res = load("res://src/ui/" + type.to_lower() + "/" + type + ".tscn").instance()
-	res.name = name
-	res.node = self
-	return res
-	
-	
-func save():
-	var save_dict = {
-		"name": name,
-		"filename": filename,
-		"parent": get_parent().get_path(),
-		"type": type,
-		"size": size,
-		"linked_nodes": linked_nodes,
-		"links": links,
-		"pos": [pos.x, pos.y],
-		"texture_path": texture_path,
-
-	}
-	
-	return save_dict
-	
 #=Signals=#
 func _on_NodeButton_pressed() -> void:
 	match Main.map.c_tool:
@@ -163,7 +167,6 @@ func _on_NodeButton_button_up() -> void:
 	if Main.map.c_tool == "Move":
 		move = false
 
-
 func _on_NodeButton_mouse_entered() -> void:
 	icon.nodeButton.modulate = Global.color_palette[0]
 
@@ -175,5 +178,7 @@ func _on_NodeButton_mouse_exited() -> void:
 		icon.nodeButton.modulate = Global.color_palette[1]
 
 
-func _on_NodeTemplate_renamed() -> void:
+
+
+func _on_Group_renamed() -> void:
 	title.text = name

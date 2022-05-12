@@ -6,6 +6,7 @@ tool
 onready var nodeButton = $NodeButton
 onready var customTexture = $CustomTexture
 
+var test = 3
 
 var type = "" setget _set_type
 
@@ -24,10 +25,10 @@ var c_texture = null setget _set_c_texture
 func _set_type(t):
 	type = t
 	if nodeButton:
-		var texture = load("res://res/icons/icon_" + t + ".svg")
+		var texture = load("res://res/icons/icon_" + type + ".svg")
 		nodeButton.texture_normal = texture
-		if type == "Note" and c_texture:
-			texture = load("res://res/icons/icon_empty_Note.svg")
+		if c_texture:
+			texture = load("res://res/icons/icon_empty_" + type + ".svg")
 			nodeButton.texture_normal = texture
 
 func _set_c_texture(t):

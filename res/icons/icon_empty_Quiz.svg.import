@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/mask_Note.png-d7199c782965f7222209d6f2e59e267b.stex"
+path="res://.import/icon_empty_Quiz.svg-184f43c9137248d2f59cd6e21ebad263.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://res/icons/mask_Note.png"
-dest_files=[ "res://.import/mask_Note.png-d7199c782965f7222209d6f2e59e267b.stex" ]
+source_file="res://res/icons/icon_empty_Quiz.svg"
+dest_files=[ "res://.import/icon_empty_Quiz.svg-184f43c9137248d2f59cd6e21ebad263.stex" ]
 
 [params]
 
@@ -24,7 +24,7 @@ flags/filter=true
 flags/mipmaps=false
 flags/anisotropic=false
 flags/srgb=2
-process/fix_alpha_border=false
+process/fix_alpha_border=true
 process/premult_alpha=false
 process/HDR_as_SRGB=false
 process/invert_color=false

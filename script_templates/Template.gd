@@ -18,5 +18,6 @@ extends Node
 
 #=Getters=#
 
+#=Custom=#
 
 #=Signals=#
