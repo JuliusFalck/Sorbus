@@ -1,13 +1,13 @@
-extends Control
-
+extends MarginContainer
 tool
-onready var icon = $NodeIcon
-onready var title = $TitleLabel
+onready var icon = $VBoxContainer/NodeIcon
+onready var title = $VBoxContainer/TitleLabel
+onready var button = $Button
 
 
 #=Saved=#
 
-export (String, "Note", "Quiz", "Image", "Chart") var type setget _set_type
+export (String, "Note", "List", "Quiz", "Cards", "Image", "Chart") var type setget _set_type
 
 var pos = Vector2(0, 0) setget _set_pos
 
@@ -71,10 +71,16 @@ func _set_pos(p):
 	
 func set_selected(s):
 	selected = s
-	if selected:
-		icon.nodeButton.modulate = Global.color_palette[1]
+	if button.get_global_rect().has_point(get_global_mouse_position()):
+			icon.nodeButton.modulate = Global.color_palette[0]
+			title.modulate = Global.color_palette[0]
 	else:
-		icon.nodeButton.modulate = Color(1, 1, 1, 1)
+		if selected:
+			icon.nodeButton.modulate = Global.color_palette[1]
+			title.modulate = Global.color_palette[1]
+		else:
+			icon.nodeButton.modulate = Color(1, 1, 1, 1)
+			title.modulate = Color(1, 1, 1, 1)
 
 func set_texture_path(t):
 	if t:
@@ -107,7 +113,7 @@ func select(s):
 #=Custom=#
 
 func make():
-	var res = load("res://src/ui/" + type.to_lower() + "/" + type + ".tscn").instance()
+	var res = load("res://src/elements/" + type.to_lower() + "/" + type + ".tscn").instance()
 	res.name = name
 	res.node = self
 	return res
@@ -124,13 +130,12 @@ func save():
 		"links": links,
 		"pos": [pos.x, pos.y],
 		"texture_path": texture_path,
-
 	}
 	
 	return save_dict
 	
 #=Signals=#
-func _on_NodeButton_pressed() -> void:
+func _on_Button_pressed() -> void:
 	match Main.map.c_tool:
 		"Select":
 			if double:
@@ -153,27 +158,33 @@ func _on_NodeButton_pressed() -> void:
 			
 		
 
-func _on_NodeButton_button_down() -> void:
+func _on_Button_button_down() -> void:
 	icon.nodeButton.modulate = Global.color_palette[1]
+	title.modulate = Global.color_palette[1]
 	if Main.map.c_tool == "Move":
 		start_pos = get_global_mouse_position()
 		move = true
 
-func _on_NodeButton_button_up() -> void:
+func _on_Button_button_up() -> void:
 	if Main.map.c_tool == "Move":
 		move = false
 
 
-func _on_NodeButton_mouse_entered() -> void:
+func _on_Button_mouse_entered() -> void:
 	icon.nodeButton.modulate = Global.color_palette[0]
+	title.modulate = Global.color_palette[0]
 
 
-func _on_NodeButton_mouse_exited() -> void:
+func _on_Button_mouse_exited() -> void:
 	if !selected:
 		icon.nodeButton.modulate = Color(1, 1, 1, 1)
+		title.modulate = Color(1, 1, 1, 1)
 	else:
 		icon.nodeButton.modulate = Global.color_palette[1]
+		title.modulate = Global.color_palette[1]
 
 
 func _on_NodeTemplate_renamed() -> void:
 	title.text = name
+
+

@@ -3,7 +3,7 @@
 [ext_resource path="res://src/main/Main.gd" type="Script" id=1]
 [ext_resource path="res://src/map/Map.tscn" type="PackedScene" id=2]
 [ext_resource path="res://src/view/View.tscn" type="PackedScene" id=3]
-[ext_resource path="res://src/list/List.tscn" type="PackedScene" id=4]
+[ext_resource path="res://src/tasks/Tasks.tscn" type="PackedScene" id=4]
 
 [node name="Main" type="Control"]
 anchor_right = 1.0
@@ -39,7 +39,7 @@ margin_top = 63.0
 [node name="Map" parent="VBoxContainer/MainView" instance=ExtResource( 2 )]
 visible = false
 
-[node name="List" parent="VBoxContainer/MainView" instance=ExtResource( 4 )]
+[node name="Tasks" parent="VBoxContainer/MainView" instance=ExtResource( 4 )]
 visible = false
 
 [node name="FileDialog" type="FileDialog" parent="."]
@@ -55,5 +55,16 @@ rect_min_size = Vector2( 1200, 900 )
 window_title = "Open a File"
 mode = 0
 
+[node name="EditButton" type="Button" parent="."]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -200.0
+margin_top = 100.0
+margin_right = -100.0
+margin_bottom = 43.0
+toggle_mode = true
+text = "Edit"
+
 [connection signal="tab_changed" from="VBoxContainer/MainView" to="." method="_on_MainView_tab_changed"]
 [connection signal="file_selected" from="FileDialog" to="." method="_on_FileDialog_file_selected"]
+[connection signal="pressed" from="EditButton" to="." method="_on_Button_pressed"]

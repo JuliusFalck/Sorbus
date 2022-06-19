@@ -1,14 +1,22 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://src/custom_ui/CustomTextureButton.tscn" type="PackedScene" id=1]
 [ext_resource path="res://res/icons/icon_Quiz.svg" type="Texture" id=2]
 [ext_resource path="res://res/icons/icon_Figure.svg" type="Texture" id=3]
 [ext_resource path="res://res/icons/icon_Note.svg" type="Texture" id=4]
 [ext_resource path="res://src/ui/map/NodeTypePicker.gd" type="Script" id=5]
+[ext_resource path="res://res/icons/icon_List.svg" type="Texture" id=6]
+[ext_resource path="res://res/icons/icon_Cards.svg" type="Texture" id=7]
 
 [node name="NodeTypePicker" type="Control"]
-anchor_right = 1.0
-anchor_bottom = 1.0
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -1920.0
+margin_top = -1030.0
+margin_right = 1920.0
+margin_bottom = 1030.0
 script = ExtResource( 5 )
 
 [node name="CloseButton" type="Button" parent="."]
@@ -23,35 +31,23 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -300.0
-margin_top = -100.0
-margin_right = 300.0
-margin_bottom = 100.0
-
-[node name="HBoxContainer" type="HBoxContainer" parent="CenterContainer"]
-margin_right = 600.0
+margin_left = -450.0
+margin_top = -200.0
+margin_right = 450.0
 margin_bottom = 200.0
-rect_min_size = Vector2( 600, 200 )
+
+[node name="NodePickBox" type="HBoxContainer" parent="CenterContainer"]
+margin_right = 900.0
+margin_bottom = 400.0
+rect_min_size = Vector2( 900, 400 )
 size_flags_horizontal = 3
-size_flags_vertical = 3
+size_flags_vertical = 0
 custom_constants/separation = 60
 alignment = 1
 
-[node name="QuizNodeTypeButton" parent="CenterContainer/HBoxContainer" instance=ExtResource( 1 )]
-margin_right = 140.0
-margin_bottom = 200.0
-size_flags_horizontal = 3
-texture_normal = ExtResource( 2 )
-texture_pressed = ExtResource( 2 )
-texture_hover = ExtResource( 2 )
-texture_disabled = ExtResource( 2 )
-texture_focused = ExtResource( 2 )
-toggle = false
-
-[node name="NoteNodeTypeButton" parent="CenterContainer/HBoxContainer" instance=ExtResource( 1 )]
-margin_left = 200.0
-margin_right = 340.0
-margin_bottom = 200.0
+[node name="NoteNodeTypeButton" parent="CenterContainer/NodePickBox" instance=ExtResource( 1 )]
+margin_right = 132.0
+margin_bottom = 400.0
 size_flags_horizontal = 3
 texture_normal = ExtResource( 4 )
 texture_pressed = ExtResource( 4 )
@@ -60,10 +56,49 @@ texture_disabled = ExtResource( 4 )
 texture_focused = ExtResource( 4 )
 toggle = false
 
-[node name="FigureNodeTypeButton" parent="CenterContainer/HBoxContainer" instance=ExtResource( 1 )]
-margin_left = 400.0
-margin_right = 540.0
-margin_bottom = 200.0
+[node name="ListNodeTypeButton" parent="CenterContainer/NodePickBox" instance=ExtResource( 1 )]
+margin_left = 192.0
+margin_right = 324.0
+margin_bottom = 400.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+texture_normal = ExtResource( 6 )
+texture_pressed = ExtResource( 6 )
+texture_hover = ExtResource( 6 )
+texture_disabled = ExtResource( 6 )
+texture_focused = ExtResource( 6 )
+toggle = false
+
+[node name="QuizNodeTypeButton" parent="CenterContainer/NodePickBox" instance=ExtResource( 1 )]
+margin_left = 384.0
+margin_right = 516.0
+margin_bottom = 400.0
+size_flags_horizontal = 3
+texture_normal = ExtResource( 2 )
+texture_pressed = ExtResource( 2 )
+texture_hover = ExtResource( 2 )
+texture_disabled = ExtResource( 2 )
+texture_focused = ExtResource( 2 )
+toggle = false
+
+[node name="CardsNodeTypeButton" parent="CenterContainer/NodePickBox" instance=ExtResource( 1 )]
+margin_left = 576.0
+margin_right = 708.0
+margin_bottom = 400.0
+rect_min_size = Vector2( 100, 0 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
+texture_normal = ExtResource( 7 )
+texture_pressed = ExtResource( 7 )
+texture_hover = ExtResource( 7 )
+texture_disabled = ExtResource( 7 )
+texture_focused = ExtResource( 7 )
+toggle = false
+
+[node name="FigureNodeTypeButton" parent="CenterContainer/NodePickBox" instance=ExtResource( 1 )]
+margin_left = 768.0
+margin_right = 900.0
+margin_bottom = 400.0
 size_flags_horizontal = 3
 texture_normal = ExtResource( 3 )
 texture_pressed = ExtResource( 3 )
@@ -72,10 +107,10 @@ texture_disabled = ExtResource( 3 )
 texture_focused = ExtResource( 3 )
 toggle = false
 
-[node name="ChartNodeTypeButton" parent="CenterContainer/HBoxContainer" instance=ExtResource( 1 )]
-margin_left = 600.0
-margin_right = 600.0
-margin_bottom = 200.0
-toggle = false
-
+[connection signal="visibility_changed" from="." to="." method="_on_NodeTypePicker_visibility_changed"]
 [connection signal="pressed" from="CloseButton" to="." method="_on_CloseButton_pressed"]
+[connection signal="pressed" from="CenterContainer/NodePickBox/NoteNodeTypeButton" to="." method="_on_NoteNodeTypeButton_pressed"]
+[connection signal="pressed" from="CenterContainer/NodePickBox/ListNodeTypeButton" to="." method="_on_ListNodeTypeButton_pressed"]
+[connection signal="pressed" from="CenterContainer/NodePickBox/QuizNodeTypeButton" to="." method="_on_QuizNodeTypeButton_pressed"]
+[connection signal="pressed" from="CenterContainer/NodePickBox/CardsNodeTypeButton" to="." method="_on_CardsNodeTypeButton_pressed"]
+[connection signal="pressed" from="CenterContainer/NodePickBox/FigureNodeTypeButton" to="." method="_on_FigureNodeTypeButton_pressed"]

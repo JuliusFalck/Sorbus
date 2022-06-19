@@ -34,6 +34,15 @@ func _ready() -> void:
 
 
 #=Custom=#
+func disable(t):
+	disabled = t
+	if disabled:
+		modulate = Color(.4, 0.4, 0.4)
+	else:
+		modulate = std_c
+
+
+
 func activate():
 	active = true
 	modulate = colors[c_color][1]
@@ -46,26 +55,30 @@ func deactivate():
 #=Signals=#
 
 
-func _on_TextureButton_mouse_entered() -> void:
-	modulate = colors[c_color][0]
 
-
-func _on_TextureButton_mouse_exited() -> void:
-	if !active:
-		modulate = std_c
-
-
-func _on_TextureButton_button_down() -> void:
-	modulate = colors[c_color][1]
-
-
-func _on_TextureButton_button_up() -> void:
-	if toggle:
-		active = !active
+func _on_CustomTextureButton_button_down() -> void:
+	if !disabled:
 		modulate = colors[c_color][1]
-	else:
+
+
+func _on_CustomTextureButton_button_up() -> void:
+	if !disabled:
+		if toggle:
+			active = !active
+			modulate = colors[c_color][1]
+		else:
+			modulate = colors[c_color][0]
+
+
+func _on_CustomTextureButton_mouse_entered() -> void:
+	if !disabled:
 		modulate = colors[c_color][0]
+
+func _on_CustomTextureButton_mouse_exited() -> void:
+	if !disabled:
+		if !active:
+			modulate = std_c
 
 
 func _on_CustomTextureButton_visibility_changed() -> void:
-	modulate = std_c
+	pass # Replace with function body.

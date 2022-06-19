@@ -1,0 +1,215 @@
+[gd_scene load_steps=11 format=2]
+
+[ext_resource path="res://src/elements/quiz/Question.gd" type="Script" id=1]
+[ext_resource path="res://res/fonts/LargFont.tres" type="DynamicFont" id=2]
+[ext_resource path="res://src/elements/quiz/QuestionText.tscn" type="PackedScene" id=3]
+[ext_resource path="res://res/icons/icon_X.svg" type="Texture" id=4]
+[ext_resource path="res://src/elements/quiz/ImageVideoSlide.tscn" type="PackedScene" id=6]
+[ext_resource path="res://src/custom_ui/CustomTextureButton.gd" type="Script" id=7]
+[ext_resource path="res://src/elements/quiz/LargeViewIV.tscn" type="PackedScene" id=8]
+
+[sub_resource type="StyleBoxFlat" id=2]
+bg_color = Color( 0.6, 0.6, 0.6, 0 )
+
+[sub_resource type="StyleBoxEmpty" id=3]
+
+[sub_resource type="StyleBoxFlat" id=1]
+bg_color = Color( 0.6, 0.6, 0.6, 0 )
+
+[node name="Question" type="VBoxContainer"]
+margin_right = 600.0
+margin_bottom = 2000.0
+rect_min_size = Vector2( 0, 1600 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_constants/separation = 18
+alignment = 1
+script = ExtResource( 1 )
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+margin_right = 600.0
+margin_bottom = 90.0
+custom_constants/margin_bottom = 18
+
+[node name="DeleteButton" type="TextureButton" parent="MarginContainer"]
+modulate = Color( 0.95, 0.95, 0.95, 1 )
+margin_left = 264.0
+margin_right = 336.0
+margin_bottom = 72.0
+rect_min_size = Vector2( 72, 72 )
+size_flags_horizontal = 4
+texture_normal = ExtResource( 4 )
+texture_pressed = ExtResource( 4 )
+texture_hover = ExtResource( 4 )
+texture_disabled = ExtResource( 4 )
+texture_focused = ExtResource( 4 )
+expand = true
+stretch_mode = 5
+script = ExtResource( 7 )
+toggle = false
+c_color = "Red"
+
+[node name="QuestionBox" type="VBoxContainer" parent="."]
+margin_top = 108.0
+margin_right = 600.0
+margin_bottom = 1279.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_constants/separation = 0
+alignment = 1
+
+[node name="ImageVideoSlide" parent="QuestionBox" instance=ExtResource( 6 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_right = 600.0
+margin_bottom = 871.0
+
+[node name="Audio" type="ScrollContainer" parent="QuestionBox"]
+margin_top = 871.0
+margin_right = 600.0
+margin_bottom = 931.0
+rect_min_size = Vector2( 0, 60 )
+scroll_vertical_enabled = false
+
+[node name="HBoxAudio" type="HBoxContainer" parent="QuestionBox/Audio"]
+visible = false
+
+[node name="Text" type="VBoxContainer" parent="QuestionBox"]
+margin_top = 931.0
+margin_right = 600.0
+margin_bottom = 1171.0
+rect_min_size = Vector2( 0, 240 )
+size_flags_horizontal = 3
+size_flags_vertical = 4
+
+[node name="HBoxText" type="HBoxContainer" parent="QuestionBox/Text"]
+margin_right = 600.0
+margin_bottom = 189.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+alignment = 1
+
+[node name="PreviousButtonT" type="Button" parent="QuestionBox/Text/HBoxText"]
+margin_right = 43.0
+margin_bottom = 189.0
+custom_fonts/font = ExtResource( 2 )
+custom_styles/hover = SubResource( 2 )
+custom_styles/pressed = SubResource( 2 )
+custom_styles/focus = SubResource( 2 )
+custom_styles/disabled = SubResource( 2 )
+custom_styles/normal = SubResource( 2 )
+text = "<"
+
+[node name="Text" type="MarginContainer" parent="QuestionBox/Text/HBoxText"]
+margin_left = 51.0
+margin_right = 549.0
+margin_bottom = 189.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="QuestionText" parent="QuestionBox/Text/HBoxText/Text" instance=ExtResource( 3 )]
+margin_right = 498.0
+margin_bottom = 189.0
+
+[node name="NextButtonT" type="Button" parent="QuestionBox/Text/HBoxText"]
+margin_left = 557.0
+margin_right = 600.0
+margin_bottom = 189.0
+custom_fonts/font = ExtResource( 2 )
+custom_styles/hover = SubResource( 2 )
+custom_styles/pressed = SubResource( 2 )
+custom_styles/focus = SubResource( 2 )
+custom_styles/disabled = SubResource( 2 )
+custom_styles/normal = SubResource( 2 )
+text = ">"
+
+[node name="Node2D" type="Node2D" parent="QuestionBox/Text/HBoxText"]
+
+[node name="DeleteButtonT" type="TextureButton" parent="QuestionBox/Text/HBoxText/Node2D"]
+modulate = Color( 0.95, 0.95, 0.95, 1 )
+margin_right = 40.0
+margin_bottom = 40.0
+texture_normal = ExtResource( 4 )
+texture_pressed = ExtResource( 4 )
+texture_hover = ExtResource( 4 )
+texture_disabled = ExtResource( 4 )
+texture_focused = ExtResource( 4 )
+expand = true
+stretch_mode = 5
+script = ExtResource( 7 )
+toggle = false
+c_color = "Red"
+
+[node name="SlideCountLabel" type="Label" parent="QuestionBox/Text"]
+margin_top = 197.0
+margin_right = 600.0
+margin_bottom = 240.0
+custom_styles/normal = SubResource( 3 )
+align = 1
+
+[node name="ScrollContainer" type="ScrollContainer" parent="."]
+margin_top = 1297.0
+margin_right = 600.0
+margin_bottom = 1897.0
+rect_min_size = Vector2( 600, 600 )
+scroll_horizontal_enabled = false
+
+[node name="MarginContainer" type="MarginContainer" parent="ScrollContainer"]
+margin_right = 600.0
+margin_bottom = 600.0
+rect_min_size = Vector2( 600, 600 )
+custom_constants/margin_right = 43
+custom_constants/margin_left = 43
+
+[node name="Answers" type="VBoxContainer" parent="ScrollContainer/MarginContainer"]
+margin_left = 43.0
+margin_right = 557.0
+margin_bottom = 600.0
+custom_constants/separation = 12
+
+[node name="EditAnswers" type="VBoxContainer" parent="ScrollContainer/MarginContainer"]
+visible = false
+margin_left = 43.0
+margin_right = 557.0
+margin_bottom = 600.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_constants/separation = 12
+
+[node name="AddAnswerButton" type="Button" parent="."]
+visible = false
+margin_top = 1016.0
+margin_right = 600.0
+margin_bottom = 1059.0
+size_flags_vertical = 4
+custom_fonts/font = ExtResource( 2 )
+custom_styles/hover = SubResource( 1 )
+custom_styles/pressed = SubResource( 1 )
+custom_styles/focus = SubResource( 1 )
+custom_styles/disabled = SubResource( 1 )
+custom_styles/normal = SubResource( 1 )
+text = "+"
+
+[node name="EmptyBox" type="ColorRect" parent="."]
+margin_top = 1915.0
+margin_right = 600.0
+margin_bottom = 2000.0
+rect_min_size = Vector2( 85, 85 )
+size_flags_vertical = 4
+color = Color( 1, 1, 1, 0 )
+
+[node name="LargeViewIV" parent="." instance=ExtResource( 8 )]
+
+[connection signal="button_down" from="MarginContainer/DeleteButton" to="MarginContainer/DeleteButton" method="_on_CustomTextureButton_button_down"]
+[connection signal="button_up" from="MarginContainer/DeleteButton" to="MarginContainer/DeleteButton" method="_on_CustomTextureButton_button_up"]
+[connection signal="mouse_entered" from="MarginContainer/DeleteButton" to="MarginContainer/DeleteButton" method="_on_CustomTextureButton_mouse_entered"]
+[connection signal="mouse_exited" from="MarginContainer/DeleteButton" to="MarginContainer/DeleteButton" method="_on_CustomTextureButton_mouse_exited"]
+[connection signal="pressed" from="MarginContainer/DeleteButton" to="." method="_on_DeleteButton_pressed"]
+[connection signal="pressed" from="QuestionBox/Text/HBoxText/PreviousButtonT" to="." method="_on_PreviousButtonT_pressed"]
+[connection signal="pressed" from="QuestionBox/Text/HBoxText/NextButtonT" to="." method="_on_NextButtonT_pressed"]
+[connection signal="button_down" from="QuestionBox/Text/HBoxText/Node2D/DeleteButtonT" to="QuestionBox/Text/HBoxText/Node2D/DeleteButtonT" method="_on_CustomTextureButton_button_down"]
+[connection signal="button_up" from="QuestionBox/Text/HBoxText/Node2D/DeleteButtonT" to="QuestionBox/Text/HBoxText/Node2D/DeleteButtonT" method="_on_CustomTextureButton_button_up"]
+[connection signal="mouse_entered" from="QuestionBox/Text/HBoxText/Node2D/DeleteButtonT" to="QuestionBox/Text/HBoxText/Node2D/DeleteButtonT" method="_on_CustomTextureButton_mouse_entered"]
+[connection signal="mouse_exited" from="QuestionBox/Text/HBoxText/Node2D/DeleteButtonT" to="QuestionBox/Text/HBoxText/Node2D/DeleteButtonT" method="_on_CustomTextureButton_mouse_exited"]
+[connection signal="pressed" from="QuestionBox/Text/HBoxText/Node2D/DeleteButtonT" to="." method="_on_DeleteButtonT_pressed"]
+[connection signal="pressed" from="AddAnswerButton" to="." method="_on_AddAnswerButton_pressed"]

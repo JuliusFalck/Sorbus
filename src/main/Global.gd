@@ -10,28 +10,46 @@ var quizes = {}
 
 var notes = {}
 
+var lists = {}
+
+var cards = {}
+
 var figures = {}
 
 var charts = {}
 
 
 
-var data_types = ["quizes", "notes", "figures", "charts"]
-
-var default_question = ["What animal is fastest?", 
+var data_types = ["quizes", "notes", "lists", "cards", "figures", "charts"]
+var default_image = "res://res/icons/icon_image.svg"
+var default_question = [[[default_image], [null], ["What animal is fastest?"]], 
 [[true, "Pronghorn"], [false, "Tiger"],
  [false, "Gnu"], [false, "Ostrich"]]]
 
+var default_list_item = ["New list item", false, ""]
 	
 var sf = Vector2(1, 1) setget , get_scale_factor
 var standartd_size = Vector2(3840, 2060)
 
+# icons
+var icon_quiz = "res://res/icons/icon_Quiz.svg"
+var icon_list = "res://res/icons/icon_List.svg"
+
+
+
 # Visual
 var color_palette = [Color(0, .8, 0, 1), Color(0, .67, 0, 1)]
 
+var std_c = Color(.95, .95, .95, 1)
+var colors = {"Green": [Color(0, .8, 0, 1), Color(0, .67, 0, 1)],
+"Red": [Color(0.8, 0, 0, 1), Color(.67, 0, 0, 1)],
+"Blue": [Color(0, 0, .8, 1), Color(0, 0, 0.67, 1)],}
 
 #=Settings=#
 var save_path = "res://save/my_world.meditor"
+
+
+
 
 
 func _ready() -> void:
@@ -68,8 +86,9 @@ func rename(o, n):
 func save():
 	var save_file = File.new()
 	var world_nodes = []
-	for n in Main.map.nodes.get_children():
-		world_nodes.append(n.save())
+	for t in Main.map.nodes.get_children():
+		for n in t.get_children():
+			world_nodes.append(n.save())
 	for n in Main.map.links.get_children():
 		world_nodes.append(n.save())
 		
@@ -123,6 +142,16 @@ func to_names(v):
 		
 	return names
 
+
+func is_path_image(p):
+	return p.get_extension() in ["png", "jpg", "svg"]
+	
+	
+	
+	
+	
+func is_path_video(p):
+	return p.get_extension() in ["mp4"]
 
 # Math
 

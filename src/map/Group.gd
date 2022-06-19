@@ -71,7 +71,6 @@ func set_texture_path(t):
 
 
 func _set_elements(e):
-	print("elements")
 	elements = e
 	for i in elements:
 		if !Main.map.nodes.get_node(i).groups.has(name):

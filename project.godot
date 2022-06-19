@@ -32,9 +32,12 @@ _global_script_class_icons={
 
 [application]
 
-config/name="Meditor"
+config/name="Sorbus"
 run/main_scene="res://src/misc/Start.tscn"
-config/icon="res://icon.png"
+boot_splash/image="res://Sorbus_splash.png"
+boot_splash/fullsize=false
+boot_splash/bg_color=Color( 0, 0, 0, 1 )
+config/icon="res://Sorbus_icon.svg"
 
 [autoload]
 
@@ -60,6 +63,7 @@ theme/custom_font="res://res/fonts/MainFont.tres"
 Pan={
 "deadzone": 0.5,
 "events": [ Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"button_mask":0,"position":Vector2( 0, 0 ),"global_position":Vector2( 0, 0 ),"factor":1.0,"button_index":3,"pressed":false,"doubleclick":false,"script":null)
+, Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"button_mask":0,"position":Vector2( 0, 0 ),"global_position":Vector2( 0, 0 ),"factor":1.0,"button_index":1,"pressed":false,"doubleclick":false,"script":null)
  ]
 }
 Zoom_in={

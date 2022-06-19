@@ -21,14 +21,15 @@ shader = SubResource( 1 )
 [node name="NodeIcon" type="MarginContainer"]
 margin_right = 240.0
 margin_bottom = 240.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
+size_flags_horizontal = 4
+size_flags_vertical = 4
 script = ExtResource( 1 )
 
 [node name="CustomTexture" type="TextureRect" parent="."]
 material = SubResource( 2 )
 margin_right = 240.0
 margin_bottom = 240.0
+mouse_filter = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 expand = true

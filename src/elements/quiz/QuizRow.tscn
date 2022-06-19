@@ -1,0 +1,42 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://src/elements/quiz/QuizRow.gd" type="Script" id=1]
+
+[node name="QuizRow" type="HBoxContainer"]
+margin_right = 500.0
+margin_bottom = 63.0
+rect_min_size = Vector2( 600, 90 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
+alignment = 1
+script = ExtResource( 1 )
+
+[node name="DeleteButton" type="Button" parent="."]
+margin_right = 50.0
+margin_bottom = 90.0
+rect_min_size = Vector2( 50, 50 )
+size_flags_vertical = 3
+custom_colors/font_color_hover = Color( 0.666667, 0, 0, 1 )
+custom_colors/font_color_pressed = Color( 0.333333, 0, 0, 1 )
+text = "X"
+
+[node name="TextEdit" type="LineEdit" parent="."]
+margin_left = 58.0
+margin_right = 542.0
+margin_bottom = 90.0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "eahf dh dh"
+align = 1
+
+[node name="CorrectButton" type="Button" parent="."]
+margin_left = 550.0
+margin_right = 600.0
+margin_bottom = 90.0
+rect_min_size = Vector2( 50, 50 )
+size_flags_vertical = 3
+
+[connection signal="pressed" from="DeleteButton" to="." method="_on_DeleteButton_pressed"]
+[connection signal="text_changed" from="TextEdit" to="." method="_on_TextEdit_text_changed"]
+[connection signal="pressed" from="CorrectButton" to="." method="_on_CorrectButton_pressed"]

@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://src/elements/quiz/QuizButton.gd" type="Script" id=1]
+
+[node name="QuizButton" type="Button"]
+margin_bottom = 40.0
+rect_min_size = Vector2( 600, 90 )
+script = ExtResource( 1 )
+
+[connection signal="pressed" from="." to="." method="_on_QuizButton_pressed"]

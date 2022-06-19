@@ -1,20 +1,23 @@
 extends Control
 
 onready var tabconatainer = $TabContainer
-onready var nodeInspector = $NodeInspector
+onready var inspector = $ViewInspector
 
 var opened = []
 
-onready var c_view = 0 setget set_view
+onready var c_element = 0 setget set_view
 
 func set_view(s):
-	c_view = s
+	c_element = s
 	if !s is int:
 		tabconatainer.current_tab = s.get_index()
-		nodeInspector.node = s.node
+		inspector.node = s.node
 	else:
 		tabconatainer.current_tab = s
-		nodeInspector.node = tabconatainer.get_child(s).node
+		inspector.node = tabconatainer.get_child(s).node
+		c_element = tabconatainer.get_child(s)
+		
+	c_element.refresh()
 
 func open(o):
 	Main.c_view = Main.view

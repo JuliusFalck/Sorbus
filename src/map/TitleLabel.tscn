@@ -6,12 +6,9 @@
 [sub_resource type="StyleBoxEmpty" id=1]
 
 [node name="TitleLabel" type="Label"]
-margin_right = 40.0
-margin_bottom = 43.0
-rect_scale = Vector2( 0.1, 0.1 )
+margin_right = 45.0
+margin_bottom = 22.0
 custom_fonts/font = ExtResource( 2 )
 custom_styles/normal = SubResource( 1 )
-text = "aefghsdfg"
-align = 1
-valign = 1
+text = "Birds"
 script = ExtResource( 1 )

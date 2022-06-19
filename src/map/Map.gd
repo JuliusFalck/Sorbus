@@ -10,7 +10,7 @@ onready var nodeTypePicker = $NodeTypePicker
 onready var viewport = $MapContainer/MapViewport
 onready var moveButton = $MapUI/VBoxContainer/TopBar/MoveButton
 onready var addButton = $MapUI/VBoxContainer/TopBar/AddNodeButton
-onready var nodeInspector = $MapUI/VBoxContainer/Center/NodeInspector
+onready var inspector = $MapUI/VBoxContainer/Center/MapInspector
 onready var topBar = $MapUI/VBoxContainer/TopBar
 onready var newObjectPopup = $NewObjectPopup
 
@@ -28,19 +28,24 @@ var linked_node = null
 var c_link = null
 
 
+func edit():
+	pass 
+
 func set_selected(s):
 	selected = s
-	for c in nodes.get_children():
-		c.selected = false
+	for t in nodes.get_children():
+		for c in t.get_children():
+			c.selected = false
+			
 	for c in groups.get_children():
 		c.selected = false
 	if s:
-		nodeInspector.node = selected
+		inspector.node = selected
 		
 		selected.selected = true
 		focus_camera(selected.pos)
 	else:
-		nodeInspector.visible = false
+		inspector.visible = false
 
 func _process(delta: float) -> void:
 	
@@ -72,14 +77,21 @@ func addElement(t, n):
 		
 	var new_Node = load("res://src/ui/Nodes/NodeTemplate.tscn").instance()
 	new_Node.name = n
+	
 	match t:
 		"Quiz":
-			Global.quizes[new_Node.name] = [Global.default_question.duplicate(true)]
+			Global.quizes[new_Node.name] = {"icon": Global.icon_quiz, "questions": [Global.default_question.duplicate(true)]}
+			nodes.get_node("quizes").add_child(new_Node)
+		"List":
+			Global.lists[new_Node.name] = {"icon": Global.icon_list, "items": []}
+			nodes.get_node("lists").add_child(new_Node)
 		"Note":
 			Global.notes[new_Node.name] = ""
+			nodes.get_node("notes").add_child(new_Node)
+		
 			
 	
-	nodes.add_child(new_Node)
+	
 	new_Node.pos = camera.position
 	new_Node.name = n
 	new_Node.type = t
@@ -100,6 +112,12 @@ func remove_selected(s):
 		
 	for s in selects:
 		s.selected = true
+		
+		
+func pick_new_node(t):
+	newObjectPopup.visible = true
+	newObjectPopup.type = t
+	nodeTypePicker.visible = false
 		
 func focus_camera(pos):
 	if !Rect2(camera.position-get_viewport_rect().size*camera.zoom/2.0, get_viewport_rect().size*camera.zoom).has_point(pos):
@@ -163,20 +181,6 @@ func _on_AddNodeButton_pressed() -> void:
 	nodeTypePicker.visible = true
 	viewport.gui_disable_input = true
 
-# Pick type
-func _on_QuizNodeTypeButton_pressed() -> void:
-	newObjectPopup.visible = true
-	newObjectPopup.type = "Quiz"
-	nodeTypePicker.visible = false
-	
-
-
-func _on_NoteNodeTypeButton_pressed() -> void:
-	newObjectPopup.visible = true
-	newObjectPopup.type = "Note"
-	nodeTypePicker.visible = false
-
-
 
 # Tool signals
 func _on_MoveButton_pressed() -> void:	
@@ -207,3 +211,5 @@ func _on_GroupButton_pressed() -> void:
 	
 	
 	
+
+

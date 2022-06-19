@@ -1,0 +1,98 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://res/icons/icon_X.svg" type="Texture" id=1]
+[ext_resource path="res://res/fonts/LargFont.tres" type="DynamicFont" id=2]
+[ext_resource path="res://src/custom_ui/CustomTextureButton.gd" type="Script" id=3]
+[ext_resource path="res://src/elements/quiz/ImageVideoSlide.gd" type="Script" id=4]
+[ext_resource path="res://src/elements/quiz/ImageVideo.tscn" type="PackedScene" id=5]
+
+[sub_resource type="StyleBoxFlat" id=2]
+bg_color = Color( 0.6, 0.6, 0.6, 0 )
+
+[sub_resource type="StyleBoxEmpty" id=3]
+
+[node name="ImageVideoSlide" type="VBoxContainer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_constants/separation = 12
+alignment = 1
+script = ExtResource( 4 )
+
+[node name="HBoxImageVideo" type="HBoxContainer" parent="."]
+margin_right = 3840.0
+margin_bottom = 2005.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_constants/separation = 0
+alignment = 1
+
+[node name="PreviousButtonIV" type="Button" parent="HBoxImageVideo"]
+margin_right = 43.0
+margin_bottom = 2005.0
+custom_fonts/font = ExtResource( 2 )
+custom_styles/hover = SubResource( 2 )
+custom_styles/pressed = SubResource( 2 )
+custom_styles/focus = SubResource( 2 )
+custom_styles/disabled = SubResource( 2 )
+custom_styles/normal = SubResource( 2 )
+text = "<"
+
+[node name="ImageVideo" type="MarginContainer" parent="HBoxImageVideo"]
+margin_left = 43.0
+margin_right = 3797.0
+margin_bottom = 2005.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_constants/margin_right = 0
+custom_constants/margin_top = 0
+custom_constants/margin_left = 0
+custom_constants/margin_bottom = 0
+
+[node name="ImageVideo" parent="HBoxImageVideo/ImageVideo" instance=ExtResource( 5 )]
+margin_right = 3754.0
+margin_bottom = 2005.0
+
+[node name="NextButtonIV" type="Button" parent="HBoxImageVideo"]
+margin_left = 3797.0
+margin_right = 3840.0
+margin_bottom = 2005.0
+custom_fonts/font = ExtResource( 2 )
+custom_styles/hover = SubResource( 2 )
+custom_styles/pressed = SubResource( 2 )
+custom_styles/focus = SubResource( 2 )
+custom_styles/disabled = SubResource( 2 )
+custom_styles/normal = SubResource( 2 )
+text = ">"
+
+[node name="Node2D" type="Node2D" parent="HBoxImageVideo"]
+
+[node name="DeleteButtonIV" type="TextureButton" parent="HBoxImageVideo/Node2D"]
+modulate = Color( 0.95, 0.95, 0.95, 1 )
+margin_right = 40.0
+margin_bottom = 40.0
+texture_normal = ExtResource( 1 )
+texture_pressed = ExtResource( 1 )
+texture_hover = ExtResource( 1 )
+texture_disabled = ExtResource( 1 )
+texture_focused = ExtResource( 1 )
+expand = true
+stretch_mode = 5
+script = ExtResource( 3 )
+toggle = false
+c_color = "Red"
+
+[node name="SlideCountLabel" type="Label" parent="."]
+margin_top = 2017.0
+margin_right = 3840.0
+margin_bottom = 2060.0
+custom_styles/normal = SubResource( 3 )
+align = 1
+
+[connection signal="pressed" from="HBoxImageVideo/PreviousButtonIV" to="." method="_on_PreviousButtonIV_pressed"]
+[connection signal="pressed" from="HBoxImageVideo/NextButtonIV" to="." method="_on_NextButtonIV_pressed"]
+[connection signal="button_down" from="HBoxImageVideo/Node2D/DeleteButtonIV" to="HBoxImageVideo/Node2D/DeleteButtonIV" method="_on_CustomTextureButton_button_down"]
+[connection signal="button_up" from="HBoxImageVideo/Node2D/DeleteButtonIV" to="HBoxImageVideo/Node2D/DeleteButtonIV" method="_on_CustomTextureButton_button_up"]
+[connection signal="mouse_entered" from="HBoxImageVideo/Node2D/DeleteButtonIV" to="HBoxImageVideo/Node2D/DeleteButtonIV" method="_on_CustomTextureButton_mouse_entered"]
+[connection signal="mouse_exited" from="HBoxImageVideo/Node2D/DeleteButtonIV" to="HBoxImageVideo/Node2D/DeleteButtonIV" method="_on_CustomTextureButton_mouse_exited"]

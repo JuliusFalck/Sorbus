@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://src/view/View.gd" type="Script" id=1]
-[ext_resource path="res://src/ui/map/NodeInspector.tscn" type="PackedScene" id=2]
+[ext_resource path="res://src/ui/view/ViewInspector.tscn" type="PackedScene" id=2]
+[ext_resource path="res://src/ui/general/SearchPanel.tscn" type="PackedScene" id=3]
 
 [node name="View" type="Control"]
 anchor_right = 1.0
@@ -13,12 +14,21 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 1
 
-[node name="NodeInspector" parent="." instance=ExtResource( 2 )]
+[node name="ViewInspector" parent="." instance=ExtResource( 2 )]
 anchor_left = 1.0
 anchor_top = 0.5
 anchor_bottom = 0.5
 margin_left = -900.0
-margin_top = -800.0
+margin_top = -812.0
 margin_right = 0.0
-margin_bottom = 800.0
-mode = "View"
+margin_bottom = 812.0
+
+[node name="SearchPanel" parent="." instance=ExtResource( 3 )]
+anchor_top = 0.5
+anchor_bottom = 0.5
+margin_left = 0.0
+margin_top = -812.0
+margin_right = 900.0
+margin_bottom = 812.0
+size_flags_horizontal = 4
+size_flags_vertical = 4

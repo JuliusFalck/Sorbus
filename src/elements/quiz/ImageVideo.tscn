@@ -1,0 +1,69 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://res/icons/icon_image.svg" type="Texture" id=1]
+[ext_resource path="res://src/elements/quiz/ImageVideo.gd" type="Script" id=2]
+
+[sub_resource type="Gradient" id=1]
+offsets = PoolRealArray( 1 )
+colors = PoolColorArray( 1, 1, 1, 1 )
+
+[sub_resource type="GradientTexture" id=2]
+gradient = SubResource( 1 )
+
+[node name="ImageVideo" type="MarginContainer"]
+margin_right = 40.0
+margin_bottom = 40.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource( 2 )
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+margin_right = 40.0
+margin_bottom = 40.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Image" type="TextureRect" parent="MarginContainer"]
+margin_right = 40.0
+margin_bottom = 40.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+texture = ExtResource( 1 )
+expand = true
+stretch_mode = 6
+
+[node name="VideoPlayer" type="VideoPlayer" parent="MarginContainer"]
+visible = false
+margin_right = 40.0
+margin_bottom = 40.0
+
+[node name="Button" type="TextureButton" parent="MarginContainer"]
+margin_right = 40.0
+margin_bottom = 40.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Control" type="Control" parent="."]
+mouse_filter = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+
+[node name="Frame" type="NinePatchRect" parent="Control"]
+modulate = Color( 1, 1, 1, 0 )
+margin_right = 36.0
+margin_bottom = 36.0
+size_flags_horizontal = 0
+size_flags_vertical = 0
+texture = SubResource( 2 )
+draw_center = false
+region_rect = Rect2( 1, 1, 1, 1 )
+patch_margin_left = 18
+patch_margin_top = 18
+patch_margin_right = 18
+patch_margin_bottom = 18
+
+[connection signal="button_down" from="MarginContainer/Button" to="." method="_on_ImageButton_button_down"]
+[connection signal="button_up" from="MarginContainer/Button" to="." method="_on_ImageButton_button_up"]
+[connection signal="mouse_entered" from="MarginContainer/Button" to="." method="_on_ImageButton_mouse_entered"]
+[connection signal="mouse_exited" from="MarginContainer/Button" to="." method="_on_ImageButton_mouse_exited"]
+[connection signal="pressed" from="MarginContainer/Button" to="." method="_on_ImageButton_pressed"]
