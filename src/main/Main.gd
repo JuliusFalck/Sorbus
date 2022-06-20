@@ -35,6 +35,8 @@ func _on_MainView_tab_changed(tab: int) -> void:
 func _on_FileDialog_file_selected(path: String) -> void:
 	file_function[0].call(file_function[1], path)
 	
+func _on_FileDialog_dir_selected(dir: String) -> void:
+	file_function[0].call(file_function[1], dir)
 
 func _on_Button_pressed() -> void:
 	self.edit = !edit
@@ -45,3 +47,6 @@ func set_edit(e):
 	for c in view.tabconatainer.get_children():
 		c.edit()
 	map.edit()
+
+
+

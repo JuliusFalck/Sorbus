@@ -52,8 +52,8 @@ margin_top = -450.0
 margin_right = 600.0
 margin_bottom = 450.0
 rect_min_size = Vector2( 1200, 900 )
-window_title = "Open a File"
-mode = 0
+window_title = "Open a File or Directory"
+mode = 3
 
 [node name="EditButton" type="Button" parent="."]
 anchor_left = 1.0
@@ -66,5 +66,6 @@ toggle_mode = true
 text = "Edit"
 
 [connection signal="tab_changed" from="VBoxContainer/MainView" to="." method="_on_MainView_tab_changed"]
+[connection signal="dir_selected" from="FileDialog" to="." method="_on_FileDialog_dir_selected"]
 [connection signal="file_selected" from="FileDialog" to="." method="_on_FileDialog_file_selected"]
 [connection signal="pressed" from="EditButton" to="." method="_on_Button_pressed"]

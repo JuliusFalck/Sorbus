@@ -111,7 +111,50 @@ func generate():
 	edit()
 
 
+func generate_from_directory(path):
+	Global.quizes[name]["questions"] = []
+	for c in questions.get_children():
+		c.queue_free()
+		
+	var list = []
+	var dir = Directory.new()
+	if dir.open(path) == OK:
+		dir.list_dir_begin()
+		var file_name = dir.get_next()
+		while file_name != "":
+			if file_name.get_extension() in ["png", "jpg"]:
+				list.append(file_name)
+			file_name = dir.get_next()
+	else:
+		print("An error occurred when trying to access the path.")
 
+	for i in list:
+		print(i)
+		var picks = list.duplicate()
+		picks.erase(i)
+		var ans = [[true, i.get_basename()]]
+		for j in range(3):
+			var index = randi()%len(picks)
+			ans.append([false, picks[index].get_basename()])
+			picks.remove(index)
+		var IV = [path + "/" + i]
+		print(IV)
+		Global.quizes[name]["questions"].append([
+			[IV, [null], [""]],
+			ans
+		])
+		
+		
+	var order = range(len(Global.quizes[name]["questions"]))
+	order.shuffle()
+	for q in order:
+		var question = preload("res://src/elements/Quiz/Question.tscn").instance()
+		question.quiz = self
+		question.index = q
+		questions.add_child(question)
+	yield(get_tree(), "idle_frame")
+	self.c_question = 0
+	edit()
 
 func _on_PreviousButton_pressed() -> void:
 	c_question -= 1
@@ -126,3 +169,8 @@ func _on_NextButton_pressed() -> void:
 	else:
 		add_question()
 		
+
+
+func _on_GenerateFromDirectoryButton_pressed() -> void:
+	Main.file_function = [self, "generate_from_directory"]
+	Main.open_res()

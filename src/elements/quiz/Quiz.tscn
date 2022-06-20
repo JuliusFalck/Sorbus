@@ -79,5 +79,11 @@ text = ">"
 [node name="DependenceSettingsPanel" parent="." instance=ExtResource( 2 )]
 visible = false
 
+[node name="GenerateFromDirectoryButton" type="Button" parent="."]
+margin_right = 40.0
+margin_bottom = 43.0
+text = "Generate from directory"
+
 [connection signal="pressed" from="QuizVBox/HBoxContainer/PreviousButton" to="." method="_on_PreviousButton_pressed"]
 [connection signal="pressed" from="QuizVBox/HBoxContainer/NextButton" to="." method="_on_NextButton_pressed"]
+[connection signal="pressed" from="GenerateFromDirectoryButton" to="." method="_on_GenerateFromDirectoryButton_pressed"]
